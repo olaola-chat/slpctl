@@ -10,7 +10,7 @@ import (
 	"strings"
 )
 
-// 游戏配置结构
+// 游戏配置结构体
 type GameConfig struct {
 	Config   map[string][]StateTransition `json:"cfg"`
 	GameKey  string                       `json:"game_key"`
