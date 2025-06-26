@@ -16,17 +16,21 @@ func main() {
 	}
 }
 
+// 状态机
 func stateExec() {
-	configPath := flag.String("c", "test.json", "游戏的json配置，请参考test.json")
-	outputDir := flag.String("o", "./app", "输出目录")
+	jsonFolder := flag.String("p", "./app/service/games/state/json", "游戏状态机的默认目录")
+	jsonFile := flag.String("f", "", "游戏状态机的默认配置文件名称")
+	outputDir := flag.String("o", "./app/service/games", "输出目录")
 	flag.Parse()
 
-	if *configPath == "" {
+	if *jsonFile == "" {
 		flag.Usage()
+		fmt.Printf("-f 用户指定配置json的文件名")
 		os.Exit(1)
 	}
 
-	generator, _ := codegen.NewGameGenerator(*configPath, *outputDir)
+	jPath := fmt.Sprintf("%s/%s", *jsonFolder, *jsonFile)
+	generator, _ := codegen.NewGameGenerator(jPath, *outputDir)
 	if err := generator.Generate(); err != nil {
 		log.Fatalf("生成失败: %v", err)
 	}
