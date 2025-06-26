@@ -30,7 +30,11 @@ func stateExec() {
 	}
 
 	jPath := fmt.Sprintf("%s/%s", *jsonFolder, *jsonFile)
-	generator, _ := codegen.NewGameGenerator(jPath, *outputDir)
+	generator, nErr := codegen.NewGameGenerator(jPath, *outputDir)
+	if nErr != nil {
+		log.Fatalf("生成失败了: %v", nErr)
+		return
+	}
 	if err := generator.Generate(); err != nil {
 		log.Fatalf("生成失败: %v", err)
 	}
