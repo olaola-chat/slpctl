@@ -12,7 +12,7 @@ import (
 
 // 游戏配置结构体
 type GameConfig struct {
-	Config   map[string][]StateTransition `json:"cfg"`
+	State    map[string][]StateTransition `json:"state"`
 	GameKey  string                       `json:"game_key"`
 	GameName string                       `json:"game_name"`
 }
@@ -93,7 +93,7 @@ func (g *GameGenerator) generateGameFile() error {
 
 	// 查找初始状态（默认使用配置中的第一个状态）
 	var initialState string
-	for state := range g.config.Config {
+	for state := range g.config.State {
 		initialState = state
 		break
 	}
@@ -110,7 +110,7 @@ func (g *GameGenerator) generateGameFile() error {
 		GameName:       g.config.GameName,
 		GameStructName: gameStructName,
 		InitialState:   initialState,
-		Config:         g.config.Config,
+		Config:         g.config.State,
 		HandlerPackage: handlerPackage,
 	}
 
@@ -131,7 +131,7 @@ func (g *GameGenerator) generateHandlerFiles() error {
 	gameStructName := toCamelCase(g.config.GameKey) + "Game"
 	handlerPackage := strings.ToLower(g.config.GameKey) + "_handler"
 
-	for state, transitions := range g.config.Config {
+	for state, transitions := range g.config.State {
 		for _, transition := range transitions {
 			handlerName := generateHandlerName(gameStructName, state, transition.Event)
 			handlerPath := filepath.Join(g.handlerDir, fmt.Sprintf("%s.go", strings.ToLower(strings.ReplaceAll(handlerName, "Handler", ""))))

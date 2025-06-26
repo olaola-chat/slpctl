@@ -54,7 +54,7 @@ func (g *{{.GameStructName}}) GetGameKey() string {
 
 func (g *{{.GameStructName}}) Transitions() map[string][]Transition {
 	data := map[string][]Transition{
-		{{range $state, $transitions := .Config}}
+		{{range $state, $transitions := .State}}
 		"{{$state}}": {
 			{{range $i, $transition := $transitions}}
 			{
