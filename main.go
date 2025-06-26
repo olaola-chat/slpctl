@@ -3,16 +3,20 @@ package main
 import (
 	"flag"
 	"fmt"
-	"github.com/olaola-chat/fsm_ctl/codegen"
+	"github.com/olaola-chat/slpctl/codegen"
 	"log"
 	"os"
 )
 
 func main() {
-	exec()
+	opType := flag.String("t", "state", "游戏状态机模板生成")
+	switch *opType {
+	case "state":
+		stateExec()
+	}
 }
 
-func exec() {
+func stateExec() {
 	configPath := flag.String("c", "test.json", "游戏的json配置，请参考test.json")
 	outputDir := flag.String("o", "./app", "输出目录")
 	flag.Parse()

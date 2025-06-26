@@ -44,8 +44,8 @@ func NewGameGenerator(configPath, outputDir string) (*GameGenerator, error) {
 	}
 
 	// 准备目录和文件路径
-	handlerDir := filepath.Join(outputDir, "service", "games", "state", "internal", strings.ToLower(config.GameKey)+"_handler")
-	gameFilePath := filepath.Join(outputDir, "service", "games", "state", "internal", strings.ToLower(config.GameKey)+"_game.go")
+	handlerDir := filepath.Join(outputDir, "state", "internal", strings.ToLower(config.GameKey)+"_handler")
+	gameFilePath := filepath.Join(outputDir, "state", "internal", strings.ToLower(config.GameKey)+"_game.go")
 
 	return &GameGenerator{
 		config:       config,
