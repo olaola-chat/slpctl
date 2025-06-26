@@ -103,14 +103,14 @@ func (g *GameGenerator) generateGameFile() error {
 		GameName       string
 		GameStructName string
 		InitialState   string
-		Config         map[string][]StateTransition
+		State          map[string][]StateTransition
 		HandlerPackage string
 	}{
 		GameKey:        g.config.GameKey,
 		GameName:       g.config.GameName,
 		GameStructName: gameStructName,
 		InitialState:   initialState,
-		Config:         g.config.State,
+		State:          g.config.State,
 		HandlerPackage: handlerPackage,
 	}
 
