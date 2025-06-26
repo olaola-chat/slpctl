@@ -35,7 +35,7 @@ var gameTemplate = template.Must(template.New("game").Funcs(templateFuncs).Parse
 package internal
 
 import (
-	"slp/app/service/games/state/internal/{{.HandlerPackage}}"
+	"slp/rpc/server/internal/room_game/state/internal/{{.HandlerPackage}}"
 )
 
 // {{.GameStructName}} {{.GameName}}游戏结构体
