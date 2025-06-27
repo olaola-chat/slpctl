@@ -55,14 +55,14 @@ func (g *{{.GameStructName}}) GetGameKey() string {
 }
 
 {{- if .HasBefore}}
-// BeforeTransition 全局前置处理函数
+// BeforeTransition 所有事件全局前置处理函数
 func (g *{{.GameStructName}}) Before(ctx context.Context, gameId int64, event string, val ...any) error {
 	return {{$.HandlerPackage}}.Before(ctx, gameId, event, val...)
 }
 {{end}}
 
 {{- if .HasAfter}}
-// AfterTransition 全局后置处理函数
+// AfterTransition 所有事件全局后置处理函数
 func (g *{{.GameStructName}}) After(ctx context.Context, gameId int64, event string, val ...any) error {
 	return {{$.HandlerPackage}}.After(ctx, gameId, event, val...)
 }
