@@ -12,11 +12,12 @@ import (
 
 // 游戏配置结构体
 type GameConfig struct {
-	State    map[string][]StateTransition `json:"state"`
-	GameKey  string                       `json:"game_key"`
-	GameName string                       `json:"game_name"`
-	Before   bool                         `json:"before"` // 是否生成全局Before方法
-	After    bool                         `json:"after"`  // 是否生成全局After方法
+	State     map[string][]StateTransition `json:"state"`
+	GameKey   string                       `json:"game_key"`
+	GameName  string                       `json:"game_name"`
+	Before    bool                         `json:"before"` // 是否生成全局Before方法
+	After     bool                         `json:"after"`  // 是否生成全局After方法
+	LockGroup string                       `json:"lock_group"`
 }
 
 // 状态转换结构
@@ -109,6 +110,7 @@ func (g *GameGenerator) generateGameFile() error {
 		HandlerPackage string
 		HasBefore      bool
 		HasAfter       bool
+		LockGroup      string
 	}{
 		GameKey:        g.config.GameKey,
 		GameName:       g.config.GameName,
@@ -118,6 +120,7 @@ func (g *GameGenerator) generateGameFile() error {
 		InitialState:   initialState,
 		State:          g.config.State,
 		HandlerPackage: handlerPackage,
+		LockGroup:      g.config.LockGroup,
 	}
 
 	var buf bytes.Buffer
