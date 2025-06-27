@@ -15,6 +15,8 @@ type GameConfig struct {
 	State    map[string][]StateTransition `json:"state"`
 	GameKey  string                       `json:"game_key"`
 	GameName string                       `json:"game_name"`
+	Before   bool                         `json:"before"` // 是否生成全局Before方法
+	After    bool                         `json:"after"`  // 是否生成全局After方法
 }
 
 // 状态转换结构
@@ -105,9 +107,13 @@ func (g *GameGenerator) generateGameFile() error {
 		InitialState   string
 		State          map[string][]StateTransition
 		HandlerPackage string
+		HasBefore      bool
+		HasAfter       bool
 	}{
 		GameKey:        g.config.GameKey,
 		GameName:       g.config.GameName,
+		HasBefore:      g.config.Before,
+		HasAfter:       g.config.After,
 		GameStructName: gameStructName,
 		InitialState:   initialState,
 		State:          g.config.State,
