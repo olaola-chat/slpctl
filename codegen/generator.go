@@ -135,7 +135,7 @@ func (g *GameGenerator) generateGameFile() error {
 		}
 	}
 	if g.config.After {
-		if err := g.generateAfterHandler(); err != nil {
+		if err := g.generateBeforeHandler(); err != nil {
 			return err
 		}
 	}
@@ -208,6 +208,12 @@ func (g *GameGenerator) generateBeforeHandler() error {
 
 	// 生成before处理文件
 	beforeFilePath := filepath.Join(g.handlerDir, "before.go")
+
+	if fileExists(beforeFilePath) {
+		fmt.Printf("文件已存在，跳过生成: %s\n", beforeFilePath)
+		return nil
+	}
+
 	var buf bytes.Buffer
 	if err := handlerBeforeTemplate.Execute(&buf, tmplData); err != nil {
 		return fmt.Errorf("执行before模板失败: %v", err)
@@ -235,6 +241,12 @@ func (g *GameGenerator) generateAfterHandler() error {
 
 	// 生成after处理文件
 	afterFilePath := filepath.Join(g.handlerDir, "after.go")
+
+	if fileExists(afterFilePath) {
+		fmt.Printf("文件已存在，跳过生成: %s\n", afterFilePath)
+		return nil
+	}
+
 	var buf bytes.Buffer
 	if err := handlerAfterTemplate.Execute(&buf, tmplData); err != nil {
 		return fmt.Errorf("执行after模板失败: %v", err)
