@@ -84,10 +84,10 @@ func (g *GameGenerator) createDirectories() error {
 
 func (g *GameGenerator) generateGameFile() error {
 	// 检查文件是否存在
-	if fileExists(g.gameFilePath) {
-		fmt.Printf("文件已存在，跳过生成: %s\n", g.gameFilePath)
-		return nil
-	}
+	//if fileExists(g.gameFilePath) {
+	//	fmt.Printf("文件已存在，跳过生成: %s\n", g.gameFilePath)
+	//	return nil
+	//}
 
 	// 准备模板数据
 	gameStructName := toCamelCase(g.config.GameKey) + "Game"
@@ -130,12 +130,13 @@ func (g *GameGenerator) generateGameFile() error {
 	}
 
 	if g.config.Before {
-		var beforeBuf bytes.Buffer
-		if err := handlerBeforeTemplate.Execute(&beforeBuf, tmplData); err != nil {
-			return fmt.Errorf("执行游戏文件before模板失败: %v", err)
+		if err := g.generateBeforeHandler(); err != nil {
+			return err
 		}
-		if err := ioutil.WriteFile(fmt.Sprintf("%s/%s.go", g.handlerDir, "before"), beforeBuf.Bytes(), 0644); err != nil {
-			return fmt.Errorf("写入游戏文件before失败: %v", err)
+	}
+	if g.config.After {
+		if err := g.generateAfterHandler(); err != nil {
+			return err
 		}
 	}
 
@@ -190,6 +191,60 @@ func (g *GameGenerator) generateHandlerFile(filePath, handlerName, state, event,
 	}
 
 	fmt.Printf("生成处理函数文件: %s\n", filePath)
+	return nil
+}
+
+func (g *GameGenerator) generateBeforeHandler() error {
+	gameStructName := toCamelCase(g.config.GameKey) + "Game"
+	handlerPackage := strings.ToLower(g.config.GameKey) + "_handler"
+
+	tmplData := struct {
+		HandlerPackage string
+		GameStructName string
+	}{
+		HandlerPackage: handlerPackage,
+		GameStructName: gameStructName,
+	}
+
+	// 生成before处理文件
+	beforeFilePath := filepath.Join(g.handlerDir, "before.go")
+	var buf bytes.Buffer
+	if err := handlerBeforeTemplate.Execute(&buf, tmplData); err != nil {
+		return fmt.Errorf("执行before模板失败: %v", err)
+	}
+
+	if err := ioutil.WriteFile(beforeFilePath, buf.Bytes(), 0644); err != nil {
+		return fmt.Errorf("写入before文件失败: %v", err)
+	}
+
+	fmt.Printf("生成before处理文件: %s\n", beforeFilePath)
+	return nil
+}
+
+func (g *GameGenerator) generateAfterHandler() error {
+	gameStructName := toCamelCase(g.config.GameKey) + "Game"
+	handlerPackage := strings.ToLower(g.config.GameKey) + "_handler"
+
+	tmplData := struct {
+		HandlerPackage string
+		GameStructName string
+	}{
+		HandlerPackage: handlerPackage,
+		GameStructName: gameStructName,
+	}
+
+	// 生成after处理文件
+	afterFilePath := filepath.Join(g.handlerDir, "after.go")
+	var buf bytes.Buffer
+	if err := handlerAfterTemplate.Execute(&buf, tmplData); err != nil {
+		return fmt.Errorf("执行after模板失败: %v", err)
+	}
+
+	if err := ioutil.WriteFile(afterFilePath, buf.Bytes(), 0644); err != nil {
+		return fmt.Errorf("写入after文件失败: %v", err)
+	}
+
+	fmt.Printf("生成after处理文件: %s\n", afterFilePath)
 	return nil
 }
 
