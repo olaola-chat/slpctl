@@ -62,7 +62,7 @@ func (g *{{.GameStructName}}) Before(ctx context.Context, from, event string, ga
 
 {{- if .HasAfter}}
 // AfterTransition 全局后置处理函数
-func (g *{{.GameStructName}}) After(ctx context.Context, from, to, event string, gameId int64, err error, val ...interface{}) error {
+func (g *{{.GameStructName}}) After(ctx context.Context, from, to, event string, gameId int64, val ...interface{}) error {
 	return {{$.HandlerPackage}}.After(ctx, from, to, event, gameId, val...)
 }
 {{end}}
