@@ -135,7 +135,7 @@ func (g *GameGenerator) generateGameFile() error {
 		}
 	}
 	if g.config.After {
-		if err := g.generateBeforeHandler(); err != nil {
+		if err := g.generateAfterHandler(); err != nil {
 			return err
 		}
 	}
