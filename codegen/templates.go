@@ -99,7 +99,7 @@ func {{.HandlerName}}(ctx context.Context, gameKey string, gameId int64, val ...
 }
 `))
 
-var handlerBeforeTemplate = template.Must(template.New("handler").Funcs(templateFuncs).Parse(`
+var handlerBeforeTemplate = template.Must(template.New("before").Funcs(templateFuncs).Parse(`
 package {{.HandlerPackage}}
 
 import (
