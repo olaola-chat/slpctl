@@ -56,15 +56,15 @@ func (g *{{.GameStructName}}) GetGameKey() string {
 
 {{- if .HasBefore}}
 // BeforeTransition 全局前置处理函数
-func (g *{{.GameStructName}}) Before(ctx context.Context, from, event string, gameId int64, val ...interface{}) error {
-	return {{$.HandlerPackage}}.Before(ctx, from, event, gameId, val...)
+func (g *{{.GameStructName}}) Before(ctx context.Context, gameId int64, event string, val ...any) error {
+	return {{$.HandlerPackage}}.Before(ctx, gameId, event, val...)
 }
 {{end}}
 
 {{- if .HasAfter}}
 // AfterTransition 全局后置处理函数
-func (g *{{.GameStructName}}) After(ctx context.Context, from, to, event string, gameId int64, val ...interface{}) error {
-	return {{$.HandlerPackage}}.After(ctx, from, to, event, gameId, val...)
+func (g *{{.GameStructName}}) After(ctx context.Context, gameId int64, event string, val ...any) error {
+	return {{$.HandlerPackage}}.After(ctx, gameId, event, val...)
 }
 {{end}}
 
@@ -108,7 +108,7 @@ import (
 )
 
 // Before 全局前置处理函数
-func Before(ctx context.Context, from, event string, gameId int64, val ...interface{}) error {
+func Before(ctx context.Context, gameId int64, event string, val ...any) error {
 	// TODO: 实现全局前置处理逻辑
 	// 示例：记录日志、权限检查等
 	return nil
@@ -123,7 +123,7 @@ import (
 )
 
 // After 全局后置处理函数
-func After(ctx context.Context, from, to, event string, gameId int64, val ...interface{}) error {
+func After(ctx context.Context, gameId int64, event string, val ...any) error {
 	// TODO: 实现全局后置处理逻辑
 	// 示例：更新统计信息、发送通知等
 	return nil
