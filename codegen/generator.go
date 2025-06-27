@@ -134,7 +134,7 @@ func (g *GameGenerator) generateGameFile() error {
 		if err := handlerBeforeTemplate.Execute(&beforeBuf, tmplData); err != nil {
 			return fmt.Errorf("执行游戏文件before模板失败: %v", err)
 		}
-		if err := ioutil.WriteFile(fmt.Sprintf("%s/%s", g.handlerDir, "before"), beforeBuf.Bytes(), 0644); err != nil {
+		if err := ioutil.WriteFile(fmt.Sprintf("%s/%s.go", g.handlerDir, "before"), beforeBuf.Bytes(), 0644); err != nil {
 			return fmt.Errorf("写入游戏文件before失败: %v", err)
 		}
 	}
