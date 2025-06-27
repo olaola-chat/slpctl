@@ -35,6 +35,7 @@ var gameTemplate = template.Must(template.New("game").Funcs(templateFuncs).Parse
 package internal
 
 import (
+	"context"
 	"slp/rpc/server/internal/room_game/state/internal/{{.HandlerPackage}}"
 )
 
@@ -54,22 +55,15 @@ func (g *{{.GameStructName}}) GetGameKey() string {
 
 {{- if .HasBefore}}
 // BeforeTransition 全局前置处理函数
-func (g *{{.GameStructName}}) BeforeTransition(ctx context.Context, from, event string, gameId int64, val ...interface{}) error {
-	// TODO: 实现全局前置处理逻辑
-	fmt.Printf("Before transition: from %s, event %s\n", from, event)
-	return nil
+func (g *{{.GameStructName}}) Before(ctx context.Context, from, event string, gameId int64, val ...interface{}) error {
+	return {{$.HandlerPackage}}.Before(ctx, from, event, gameId, val...)
 }
 {{end}}
 
 {{- if .HasAfter}}
 // AfterTransition 全局后置处理函数
-func (g *{{.GameStructName}}) AfterTransition(ctx context.Context, from, to, event string, gameId int64, err error, val ...interface{}) {
-	// TODO: 实现全局后置处理逻辑
-	if err != nil {
-		fmt.Printf("After transition: from %s to %s, event %s, error: %v\n", from, to, event, err)
-	} else {
-		fmt.Printf("After transition: from %s to %s, event %s, success\n", from, to, event)
-	}
+func (g *{{.GameStructName}}) After(ctx context.Context, from, to, event string, gameId int64, err error, val ...interface{}) {
+	return {{$.HandlerPackage}}.After(ctx, from, to, event, gameId, val...)
 }
 {{end}}
 
