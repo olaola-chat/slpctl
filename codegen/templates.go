@@ -106,23 +106,25 @@ import (
 	"context"
 )
 
-func Before(ctx context.Context, gameKey string, gameId int64, val ...interface{}) error {
-	// TODO: 实现{{.State}}状态下的{{.Event}}事件处理逻辑
-	// 可以通过val获取事件相关参数
+// Before 全局前置处理函数
+func Before(ctx context.Context, from, event string, gameId int64, val ...interface{}) error {
+	// TODO: 实现全局前置处理逻辑
+	// 示例：记录日志、权限检查等
 	return nil
 }
 `))
 
-var handlerAfterTemplate = template.Must(template.New("handler").Funcs(templateFuncs).Parse(`
+var handlerAfterTemplate = template.Must(template.New("after").Funcs(templateFuncs).Parse(`
 package {{.HandlerPackage}}
 
 import (
 	"context"
 )
 
-func After(ctx context.Context, gameKey string, gameId int64, val ...interface{}) error {
-	// TODO: 实现{{.State}}状态下的{{.Event}}事件处理逻辑
-	// 可以通过val获取事件相关参数
+// After 全局后置处理函数
+func After(ctx context.Context, from, to, event string, gameId int64, err error, val ...interface{}) error {
+	// TODO: 实现全局后置处理逻辑
+	// 示例：更新统计信息、发送通知等
 	return nil
 }
 `))
