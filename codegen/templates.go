@@ -122,7 +122,7 @@ import (
 )
 
 // After 全局后置处理函数
-func After(ctx context.Context, from, to, event string, gameId int64, err error, val ...interface{}) error {
+func After(ctx context.Context, from, to, event string, gameId int64, val ...interface{}) error {
 	// TODO: 实现全局后置处理逻辑
 	// 示例：更新统计信息、发送通知等
 	return nil
