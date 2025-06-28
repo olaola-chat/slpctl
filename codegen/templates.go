@@ -76,7 +76,7 @@ func (g *{{.GameStructName}}) Transitions() map[string][]Transition {
 			{
 				Event:   "{{$transition.Event}}",
 				To:      "{{$transition.To}}",
-				LockGroup:"{{.LockGroup}}",
+				LockGroup:"{{$.LockGroup}}",
 				Handler: {{$.HandlerPackage}}.{{$.GameStructName}}{{$state | ToCamelCase}}{{$transition.Event | ToCamelCase}}Handler,
 			},
 			{{end}}
