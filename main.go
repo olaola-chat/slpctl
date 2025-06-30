@@ -15,7 +15,7 @@ func main() {
 	case "state":
 		stateExec()
 	case "codec":
-		codecgen.Run()
+		codecgen.CodecExec()
 	}
 	flag.Parse()
 }

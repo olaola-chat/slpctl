@@ -11,7 +11,7 @@ import (
 	"strings"
 )
 
-func Run() {
+func CodecExec() {
 	tablename := flag.String("t", "", "会根据这个表明生成对应的cache文件")
 	s := flag.Int64("s", 0, "cache 的缓存过期时间，单位s")
 	h := flag.Int64("h", 0, "cache 的缓存过期时间，单位小时,默认3")
