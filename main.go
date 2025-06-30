@@ -3,6 +3,7 @@ package main
 import (
 	"flag"
 	"fmt"
+	"github.com/olaola-chat/slpctl/codecgen"
 	"github.com/olaola-chat/slpctl/codegen"
 	"log"
 	"os"
@@ -13,6 +14,8 @@ func main() {
 	switch *opType {
 	case "state":
 		stateExec()
+	case "codec":
+		codecgen.Run()
 	}
 }
 
