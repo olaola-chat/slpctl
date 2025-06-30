@@ -17,6 +17,7 @@ func main() {
 	case "codec":
 		codecgen.Run()
 	}
+	flag.Parse()
 }
 
 // 状态机
@@ -24,7 +25,6 @@ func stateExec() {
 	jsonFolder := flag.String("p", "./rpc/server/internal/room_game/state/json", "游戏状态机的默认目录")
 	jsonFile := flag.String("f", "", "游戏状态机的默认配置文件名称")
 	outputDir := flag.String("o", "./rpc/server/internal/room_game", "输出目录")
-	flag.Parse()
 
 	if *jsonFile == "" {
 		flag.Usage()

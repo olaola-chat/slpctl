@@ -18,7 +18,7 @@ func Run() {
 	d := flag.String("d", "passive", "redis的那个模块的db,按业务区分。目前提供 story,property,block,user...")
 	primaryAlisaName := flag.String("uq", "id", "默认id，但你的表如果唯一索引锁uid，这里你就可以用uid")
 	mode := flag.String("m", "slp", "给个项目的go.mod的包名")
-	flag.Parse()
+
 	if *tablename == "" {
 		fmt.Println("必须输入-t参数，db表名的意思")
 		return
