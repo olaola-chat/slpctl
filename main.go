@@ -10,7 +10,7 @@ import (
 )
 
 func main() {
-	opType := flag.String("op", "state", "游戏状态机模板生成")
+	opType := flag.String("op", "state", "默认游戏状态机模板生成")
 	switch *opType {
 	case "state":
 		stateExec()
