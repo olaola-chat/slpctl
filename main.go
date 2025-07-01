@@ -12,7 +12,7 @@ var FunctionMap = make(map[string]Function)
 
 type Function interface {
 	// 初始化功能的参数
-	InitArgs()
+	InitArgs(flagset *flag.FlagSet)
 	// 执行功能
 	Execute() error
 	// 显示功能帮助信息
@@ -54,7 +54,7 @@ func main() {
 		function.Help()
 	}
 
-	function.InitArgs()
+	function.InitArgs(flagset)
 
 	// 解析命令行参数（跳过第一个参数: 功能类型）
 	err := flagset.Parse(os.Args[2:])

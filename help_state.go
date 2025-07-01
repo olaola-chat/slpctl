@@ -14,11 +14,11 @@ type FunctionState struct {
 	outputDir  string
 }
 
-func (f *FunctionState) InitArgs() {
+func (f *FunctionState) InitArgs(flagset *flag.FlagSet) {
 	fmt.Println("FunctionState.InitArgs")
-	flag.StringVar(&f.jsonFolder, "j", "./rpc/server/internal/room_game/state/json", "状态机的配置json文件的目录")
-	flag.StringVar(&f.jsonFile, "f", "", "游戏状态机的配置文件名称")
-	flag.StringVar(&f.outputDir, "o", "./rpc/server/internal/room_game", "状态机代码输出目录")
+	flagset.StringVar(&f.jsonFolder, "j", "./rpc/server/internal/room_game/state/json", "状态机的配置json文件的目录")
+	flagset.StringVar(&f.jsonFile, "f", "", "游戏状态机的配置文件名称")
+	flagset.StringVar(&f.outputDir, "o", "./rpc/server/internal/room_game", "状态机代码输出目录")
 }
 
 func (f *FunctionState) Execute() error {

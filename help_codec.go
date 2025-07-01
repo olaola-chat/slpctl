@@ -17,14 +17,14 @@ type FunctionCodec struct {
 }
 
 // flag.String("m", "slp", "给个项目的go.mod的包名")
-func (f *FunctionCodec) InitArgs() {
+func (f *FunctionCodec) InitArgs(flagset *flag.FlagSet) {
 	fmt.Println("FunctionCodec.InitArgs")
-	flag.StringVar(&f.tablename, "t", "", "会根据这个表明生成对应的cache文件")
-	flag.Int64Var(&f.s, "s", 0, "cache 的缓存过期时间，单位s")
-	flag.Int64Var(&f.h, "h", 0, "cache 的缓存过期时间，单位小时,默认3")
-	flag.StringVar(&f.d, "d", "passive", "redis的那个模块的db,按业务区分。目前提供 story,property,block,user...")
-	flag.StringVar(&f.primaryAlisaName, "uq", "id", "默认id，但你的表如果唯一索引锁uid，这里你就可以用uid")
-	flag.StringVar(&f.m, "m", "slp", "给个项目的go.mod的包名")
+	flagset.StringVar(&f.tablename, "t", "", "会根据这个表明生成对应的cache文件")
+	flagset.Int64Var(&f.s, "s", 0, "cache 的缓存过期时间，单位s")
+	flagset.Int64Var(&f.h, "h", 0, "cache 的缓存过期时间，单位小时,默认3")
+	flagset.StringVar(&f.d, "d", "passive", "redis的那个模块的db,按业务区分。目前提供 story,property,block,user...")
+	flagset.StringVar(&f.primaryAlisaName, "uq", "id", "默认id，但你的表如果唯一索引锁uid，这里你就可以用uid")
+	flagset.StringVar(&f.m, "m", "slp", "给个项目的go.mod的包名")
 }
 
 func (f *FunctionCodec) Execute() error {
