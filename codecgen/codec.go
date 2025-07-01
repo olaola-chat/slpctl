@@ -2,7 +2,6 @@ package codecgen
 
 import (
 	"bufio"
-	"flag"
 	"fmt"
 	"log"
 	"os"
@@ -11,13 +10,13 @@ import (
 	"strings"
 )
 
-func CodecExec() {
-	tablename := flag.String("t", "", "会根据这个表明生成对应的cache文件")
-	s := flag.Int64("s", 0, "cache 的缓存过期时间，单位s")
-	h := flag.Int64("h", 0, "cache 的缓存过期时间，单位小时,默认3")
-	d := flag.String("d", "passive", "redis的那个模块的db,按业务区分。目前提供 story,property,block,user...")
-	primaryAlisaName := flag.String("uq", "id", "默认id，但你的表如果唯一索引锁uid，这里你就可以用uid")
-	mode := flag.String("m", "slp", "给个项目的go.mod的包名")
+func CodecExec(pTableName string, ps, ph int64, pd string, pName, pmode string) {
+	tablename := &pTableName
+	s := &ps
+	h := &ph
+	d := &pd
+	primaryAlisaName := &pName
+	mode := &pmode
 
 	if *tablename == "" {
 		fmt.Println("必须输入-t参数，db表名的意思")
