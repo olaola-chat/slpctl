@@ -18,6 +18,7 @@ type FunctionCodec struct {
 
 // flag.String("m", "slp", "给个项目的go.mod的包名")
 func (f *FunctionCodec) InitArgs() {
+	fmt.Println("FunctionCodec.InitArgs")
 	flag.StringVar(&f.tablename, "codec_t", "", "会根据这个表明生成对应的cache文件")
 	flag.Int64Var(&f.s, "codec_s", 0, "cache 的缓存过期时间，单位s")
 	flag.Int64Var(&f.h, "codec_h", 0, "cache 的缓存过期时间，单位小时,默认3")

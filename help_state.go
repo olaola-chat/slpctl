@@ -15,6 +15,7 @@ type FunctionState struct {
 }
 
 func (f *FunctionState) InitArgs() {
+	fmt.Println("FunctionState.InitArgs")
 	flag.StringVar(&f.jsonFolder, "j", "./rpc/server/internal/room_game/state/json", "状态机的配置json文件的目录")
 	flag.StringVar(&f.jsonFile, "f", "", "游戏状态机的配置文件名称")
 	flag.StringVar(&f.outputDir, "o", "./rpc/server/internal/room_game", "状态机代码输出目录")
