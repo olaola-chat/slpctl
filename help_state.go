@@ -15,9 +15,9 @@ type FunctionState struct {
 }
 
 func (f *FunctionState) InitArgs() {
-	flag.StringVar(&f.jsonFolder, "j", "./rpc/server/internal/room_game/state/json", "游戏状态机的默认目录")
-	flag.StringVar(&f.jsonFile, "f", "", "游戏状态机的默认配置文件名称")
-	flag.StringVar(&f.outputDir, "o", "./rpc/server/internal/room_game", "输出目录")
+	flag.StringVar(&f.jsonFolder, "state_j", "./rpc/server/internal/room_game/state/json", "游戏状态机的默认目录")
+	flag.StringVar(&f.jsonFile, "state_f", "", "游戏状态机的默认配置文件名称")
+	flag.StringVar(&f.outputDir, "state_o", "./rpc/server/internal/room_game", "输出目录")
 }
 
 func (f *FunctionState) Execute() error {
