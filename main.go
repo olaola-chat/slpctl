@@ -3,6 +3,7 @@ package main
 import (
 	"flag"
 	"fmt"
+	"log"
 	"os"
 )
 
@@ -47,40 +48,44 @@ func main() {
 	// 处理功能特定的参数
 	fmt.Printf("执行功能: %s\n", functionType)
 	flagset := flag.NewFlagSet(functionType, flag.ContinueOnError)
-	function.InitArgs()
-
-	// 重新解析命令行参数，跳过第一个参数(功能类型)
-	err := flagset.Parse(os.Args[2:])
-	if err != nil {
-		fmt.Printf("参数解析错误: %v functionType=%v \n", err, functionType)
-		os.Exit(1)
+	flagset.Usage = func() {
+		fmt.Printf("Usage of %s:\n", functionType)
+		flagset.PrintDefaults()
+		function.Help()
 	}
 
-	// 显示帮助信息
-	if flagset.NArg() > 0 && (flagset.Arg(0) == "-h" || flagset.Arg(0) == "--help") {
-		function.Help()
-		os.Exit(0)
+	function.InitArgs()
+
+	// 解析命令行参数（跳过第一个参数: 功能类型）
+	err := flagset.Parse(os.Args[2:])
+	if err != nil {
+		// 处理帮助请求
+		if err == flag.ErrHelp {
+			function.Help()
+			os.Exit(0)
+		}
+		fmt.Printf("参数错误: %v\n", err)
+		flagset.Usage()
+		os.Exit(1)
 	}
 
 	// 执行功能
-	err = function.Execute()
-	if err != nil {
-		fmt.Printf("执行错误: %v\n", err)
+	if err = function.Execute(); err != nil {
+		log.Fatalf("执行失败: %v", err)
 		os.Exit(1)
 	}
-
-	fmt.Println("功能执行完成")
+	return
 }
 
 // 显示主帮助信息
 func showMainHelp() {
-	fmt.Println("多功能工具 usage:")
-	fmt.Println("  slpctl state [function-args]")
+	fmt.Println("slpctl 工具 usage:")
+	fmt.Println("  slpctl <功能> [参数...]")
 	fmt.Println("")
 	fmt.Println("可用功能:")
 	for name := range FunctionMap {
-		fmt.Printf("  %s\n", name)
+		fmt.Printf("  %s - \n", name)
 	}
 	fmt.Println("")
-	fmt.Println("使用 'slpctl tp -h' 查看具体功能的帮助信息")
+	fmt.Println("使用 'slpctl <功能> -h' 查看具体功能的帮助信息")
 }

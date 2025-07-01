@@ -15,9 +15,9 @@ type FunctionState struct {
 }
 
 func (f *FunctionState) InitArgs() {
-	flag.StringVar(&f.jsonFolder, "state_j", "./rpc/server/internal/room_game/state/json", "游戏状态机的默认目录")
-	flag.StringVar(&f.jsonFile, "state_f", "", "游戏状态机的默认配置文件名称")
-	flag.StringVar(&f.outputDir, "state_o", "./rpc/server/internal/room_game", "输出目录")
+	flag.StringVar(&f.jsonFolder, "j", "./rpc/server/internal/room_game/state/json", "状态机的配置json文件的目录")
+	flag.StringVar(&f.jsonFile, "f", "", "游戏状态机的配置文件名称")
+	flag.StringVar(&f.outputDir, "o", "./rpc/server/internal/room_game", "状态机代码输出目录")
 }
 
 func (f *FunctionState) Execute() error {
@@ -41,10 +41,12 @@ func (f *FunctionState) Execute() error {
 }
 
 func (f *FunctionState) Help() {
-	fmt.Println("功能: 状态机")
-	fmt.Println("  描述: 用户快速生成状态机的基础代码")
+	fmt.Println("功能: 状态机代码生成")
+	fmt.Println("  描述: 基于JSON配置生成游戏状态机基础代码")
 	fmt.Println("  参数:")
-	fmt.Println("    -j 状态机的配置json文件的目录")
-	fmt.Println("    -f 游戏状态机的默认配置文件名称")
-	fmt.Println("    -o 状态机代码输出目录")
+	fmt.Println("    -j <目录>  状态机配置JSON文件的目录 (默认: ./rpc/server/internal/room_game/state/json)")
+	fmt.Println("    -f <文件>  状态机配置文件名 (必须指定)")
+	fmt.Println("    -o <目录>  生成代码的输出目录 (默认: ./rpc/server/internal/room_game)")
+	fmt.Println("  示例:")
+	fmt.Println("    slpctl state -f game_state.json -o ./output")
 }
