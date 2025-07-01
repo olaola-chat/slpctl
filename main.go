@@ -52,7 +52,7 @@ func main() {
 	// 重新解析命令行参数，跳过第一个参数(功能类型)
 	err := flagset.Parse(os.Args[2:])
 	if err != nil {
-		fmt.Printf("参数解析错误: %v\n", err)
+		fmt.Printf("参数解析错误: %v functionType=%v \n", err, functionType)
 		os.Exit(1)
 	}
 
