@@ -577,7 +577,7 @@ func GenHelmCode() {
 	services := collectServices()
 
 	// 生成HTML文件
-	outputFile := "services_dashboard.html"
+	outputFile := "/tmp/services_dashboard.html"
 	if err := generateHTML(services, outputFile); err != nil {
 		fmt.Printf("生成HTML失败: %v\n", err)
 		os.Exit(1)
