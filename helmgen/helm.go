@@ -296,7 +296,7 @@ const htmlTemplate = `<!DOCTYPE html>
 </head>
 <body>
     <div class="container">
-        <h1>服务管理仪表盘</h1>
+        <h1>helm重启tag服务管理仪表盘</h1>
 
         <div class="controls">
             <div class="filter-group">
