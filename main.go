@@ -23,6 +23,7 @@ type Function interface {
 func initFunctions() {
 	FunctionMap["state"] = &FunctionState{}
 	FunctionMap["codec"] = &FunctionCodec{}
+	FunctionMap["helm"] = &FunctionHelm{}
 	// 可以在这里添加更多功能
 }
 
